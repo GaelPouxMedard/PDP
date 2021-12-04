@@ -51,7 +51,7 @@ def preprocessing(dataset):
         file = codecs.open(dataset, 'r')  # ,'utf-8')
         documents = [document.strip() for document in file]
     except:
-        file = codecs.open(dataset, 'r', 'utf-8')
+        file = codecs.open(dataset, 'r', 'ISO-8859-1')
         documents = [document.strip() for document in file]
 
     file.close()

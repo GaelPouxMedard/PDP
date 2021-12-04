@@ -142,7 +142,11 @@ def variation_of_information(X, Y):
     return abs(sigma)
 
 
-r = 0.5
+try:
+    r = float(sys.argv[1])
+except:
+    r = 1.
+
 
 alpha = 1.
 beta = 0.1

@@ -65,7 +65,7 @@ def preprocessing(dataset):
     lg = len(documents)
     for index_doc, document in enumerate(documents):
         if index_doc % (lg // 10) == 0: print(index_doc * 100 / lg, "%")
-        if index_doc > 350 and False: break
+        if index_doc > 350 and True: break
         # 分词
         segList = jieba.cut(document)
         for word in segList:
@@ -146,7 +146,7 @@ r = 0.5
 
 alpha = 1.
 beta = 0.1
-iterationNum = 500
+iterationNum = 200
 nbRuns = 100
 K = 20
 dataset = "Dataset_20new.txt"
@@ -194,33 +194,38 @@ for run in range(nbRuns):
     from sklearn.metrics import normalized_mutual_info_score, adjusted_rand_score, adjusted_mutual_info_score, \
         v_measure_score, fowlkes_mallows_score
 
+    t = time.time()
     for i in range(0, iterationNum):
         gibbsSampling(r)
-        print(time.strftime('%X'), f"Iteration: {i}/{iterationNum} Completed", " Perplexity: ", perplexity())
-        for doc_i, z in enumerate(Z):
-            ind, cnt = np.unique(z, return_counts=True)
-            topic = ind[cnt == max(cnt)][0]
-            tabYInf[doc_i] = topic
+        dt = time.time()-t
+        t = time.time()
+        print(dt, "s", f"Iteration: {i}/{iterationNum} Completed", " Perplexity: ", perplexity())
 
-        partTrue, partInf = [], []
-        for c in set(tabYTrue):
-            partTrue.append(list(np.where(tabYTrue == c)[0]))
-        for c in set(tabYInf):
-            partInf.append(list(np.where(tabYInf == c))[0])
-        maxVI = np.log(len(tabYTrue))
-        NMI = normalized_mutual_info_score(tabYTrue, tabYInf)
-        NVI = variation_of_information(partTrue, partInf) / maxVI
-        AdjRand = adjusted_rand_score(tabYTrue, tabYInf)
-        AdjMI = adjusted_mutual_info_score(tabYTrue, tabYInf)
-        Vmeas = v_measure_score(tabYTrue, tabYInf)
-        Fowlkes = fowlkes_mallows_score(tabYTrue, tabYInf)
-        MargLik = perplexity()
-        varK = np.abs((len(set(tabYInf)) - len(set(tabYTrue))) / len(set(tabYTrue)))
-        tabMetrics = [NMI, NVI, AdjRand, AdjMI, Vmeas, Fowlkes, MargLik, varK]
-        with open(f"Results/Results_{r}.txt", "a") as f:
-            for met in tabMetrics:
-                f.write(str(met) + "\t")
-            f.write("\n")
-        print("\t".join(tabLabs))
-        print("\t".join(list(map(str, tabMetrics))))
-        print()
+        if i%10==0:
+            for doc_i, z in enumerate(Z):
+                ind, cnt = np.unique(z, return_counts=True)
+                topic = ind[cnt == max(cnt)][0]
+                tabYInf[doc_i] = topic
+
+            partTrue, partInf = [], []
+            for c in set(tabYTrue):
+                partTrue.append(list(np.where(tabYTrue == c)[0]))
+            for c in set(tabYInf):
+                partInf.append(list(np.where(tabYInf == c))[0])
+            maxVI = np.log(len(tabYTrue))
+            NMI = normalized_mutual_info_score(tabYTrue, tabYInf)
+            NVI = variation_of_information(partTrue, partInf) / maxVI
+            AdjRand = adjusted_rand_score(tabYTrue, tabYInf)
+            AdjMI = adjusted_mutual_info_score(tabYTrue, tabYInf)
+            Vmeas = v_measure_score(tabYTrue, tabYInf)
+            Fowlkes = fowlkes_mallows_score(tabYTrue, tabYInf)
+            MargLik = perplexity()
+            varK = np.abs((len(set(tabYInf)) - len(set(tabYTrue))) / len(set(tabYTrue)))
+            tabMetrics = [NMI, NVI, AdjRand, AdjMI, Vmeas, Fowlkes, MargLik, varK]
+            with open(f"Results/Results_{r}.txt", "a") as f:
+                for met in tabMetrics:
+                    f.write(str(met) + "\t")
+                f.write("\n")
+            print("\t".join(tabLabs))
+            print("\t".join(list(map(str, tabMetrics))))
+            print()

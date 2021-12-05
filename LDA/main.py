@@ -152,7 +152,7 @@ alpha = 1.
 beta = 0.1
 iterationNum = 200
 nbRuns = 100
-K = 20
+K = 21
 dataset = "Dataset_20new.txt"
 # dataset = "dataset.txt"
 
@@ -226,10 +226,10 @@ for run in range(nbRuns):
             MargLik = perplexity()
             varK = np.abs((len(set(tabYInf)) - len(set(tabYTrue))) / len(set(tabYTrue)))
             tabMetrics = [NMI, NVI, AdjRand, AdjMI, Vmeas, Fowlkes, MargLik, varK]
-            with open(f"Results/Results_{r}.txt", "a") as f:
-                for met in tabMetrics:
-                    f.write(str(met) + "\t")
-                f.write("\n")
-            print("\t".join(tabLabs))
-            print("\t".join(list(map(str, tabMetrics))))
-            print()
+        with open(f"Results/Results_{r}.txt", "a") as f:
+            for met in tabMetrics:
+                f.write(str(met) + "\t")
+            f.write("\n")
+        print("\t".join(tabLabs))
+        print("\t".join(list(map(str, tabMetrics))))
+        print()

@@ -198,6 +198,7 @@ for run in range(nbRuns):
     from sklearn.metrics import normalized_mutual_info_score, adjusted_rand_score, adjusted_mutual_info_score, \
         v_measure_score, fowlkes_mallows_score
 
+    tabMetrics = []
     t = time.time()
     for i in range(0, iterationNum):
         gibbsSampling(r)
@@ -226,10 +227,13 @@ for run in range(nbRuns):
             MargLik = perplexity()
             varK = np.abs((len(set(tabYInf)) - len(set(tabYTrue))) / len(set(tabYTrue)))
             tabMetrics = [NMI, NVI, AdjRand, AdjMI, Vmeas, Fowlkes, MargLik, varK]
-        with open(f"Results/Results_{r}.txt", "a") as f:
-            for met in tabMetrics:
-                f.write(str(met) + "\t")
-            f.write("\n")
-        print("\t".join(tabLabs))
-        print("\t".join(list(map(str, tabMetrics))))
-        print()
+            print("\t".join(tabLabs))
+            print("\t".join(list(map(str, tabMetrics))))
+            print()
+    with open(f"Results/Results_{r}.txt", "a") as f:
+        for met in tabMetrics:
+            f.write(str(met) + "\t")
+        f.write("\n")
+    print("\t".join(tabLabs))
+    print("\t".join(list(map(str, tabMetrics))))
+    print()

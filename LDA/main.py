@@ -144,13 +144,15 @@ def variation_of_information(X, Y):
 
 try:
     r = float(sys.argv[1])
+    run = int(sys.argv[2])
 except:
     r = 1.
+    run = 0
 
 
 alpha = 1.
 beta = 0.1
-iterationNum = 200
+iterationNum = 500
 nbRuns = 100
 K = 21
 dataset = "Dataset_20new.txt"
@@ -164,7 +166,7 @@ M = len(word2id)
 print(N, M)
 
 tabLabs = ["NMI", "NVI", "AdjRand", "AdjMI", "Vmeas", "Fowlkes", "MargLik", "varK"]
-with open(f"Results/Results_{r}.txt", "w+") as f:
+with open(f"Results500/Results_{run}_{r}.txt", "w+") as f:
     for lab in tabLabs:
         f.write(str(lab) + "\t")
     f.write("\n")
@@ -230,7 +232,7 @@ for run in range(nbRuns):
             print("\t".join(tabLabs))
             print("\t".join(list(map(str, tabMetrics))))
             print()
-    with open(f"Results/Results_{r}.txt", "a") as f:
+    with open(f"Results500/Results_{run}_{r}.txt", "a") as f:
         for met in tabMetrics:
             f.write(str(met) + "\t")
         f.write("\n")

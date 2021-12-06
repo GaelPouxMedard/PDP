@@ -17,7 +17,7 @@ for file in listRes:
     r = float(file[-7:-4])
 
     with open("Results/"+file, "r") as f:
-        labels = f"{r}\t"+f.readline()
+        labels = f"r\t"+f.readline()
         if first:
             fileoutputmean.write(labels)
             fileoutputstd.write(labels)
@@ -28,9 +28,9 @@ for file in listRes:
             line = line.replace("\n", "").split("\t")[:-1]
             tabRes.append(list(map(float, line)))
 
-        arrmean = np.mean(tabRes, axis=1)
-        arrstd = np.std(tabRes, axis=1)
-        arrsem = sem(tabRes, axis=1)
+        arrmean = np.mean(tabRes, axis=0)
+        arrstd = np.std(tabRes, axis=0)
+        arrsem = sem(tabRes, axis=0)
 
         fileoutputmean.write(f"{r}\t"+"\t".join(list(map(str, arrmean)))+"\n")
         fileoutputstd.write(f"{r}\t"+"\t".join(list(map(str, arrstd)))+"\n")

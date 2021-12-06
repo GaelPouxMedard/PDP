@@ -28,13 +28,13 @@ for file in listRes:
             line = line.replace("\n", "").split("\t")[:-1]
             tabRes.append(list(map(float, line)))
 
-        mean = np.mean(tabRes, axis=1)
-        std = np.std(tabRes, axis=1)
-        sem = sem(tabRes, axis=1)
+        arrmean = np.mean(tabRes, axis=1)
+        arrstd = np.std(tabRes, axis=1)
+        arrsem = sem(tabRes, axis=1)
 
-        fileoutputmean.write(f"{r}\t"+"\t".join(list(map(str, mean)))+"\n")
-        fileoutputstd.write(f"{r}\t"+"\t".join(list(map(str, std)))+"\n")
-        fileoutputsem.write(f"{r}\t"+"\t".join(list(map(str, sem)))+"\n")
+        fileoutputmean.write(f"{r}\t"+"\t".join(list(map(str, arrmean)))+"\n")
+        fileoutputstd.write(f"{r}\t"+"\t".join(list(map(str, arrstd)))+"\n")
+        fileoutputsem.write(f"{r}\t"+"\t".join(list(map(str, arrsem)))+"\n")
 fileoutputmean.close()
 fileoutputstd.close()
 fileoutputsem.close()

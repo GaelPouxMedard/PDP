@@ -14,6 +14,7 @@ fileoutputsem.truncate(0)
 
 first = True
 for file in listRes:
+    print(file, listRes)
     r = float(file[-7:-4])
 
     with open("Results/"+file, "r") as f:

@@ -32,9 +32,9 @@ for file in listRes:
         std = np.std(tabRes, axis=1)
         sem = sem(tabRes, axis=1)
 
-        fileoutputmean.write(f"{r}\t{'\t'.join(mean)}\n")
-        fileoutputstd.write(f"{r}\t{'\t'.join(std)}\n")
-        fileoutputsem.write(f"{r}\t{'\t'.join(sem)}\n")
+        fileoutputmean.write(f"{r}\t"+"\t".join(mean)+"\n")
+        fileoutputstd.write(f"{r}\t"+"\t".join(std)+"\n")
+        fileoutputsem.write(f"{r}\t"+"\t".join(sem)+"\n")
 
 fileoutputmean.close()
 fileoutputstd.close()

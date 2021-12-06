@@ -3,7 +3,7 @@ import numpy as np
 from scipy.stats import sem
 
 
-listRes = os.listdir("Results")
+listRes = sorted(os.listdir("Results"))
 
 fileoutputmean = open("Results_mean.txt", "a+")
 fileoutputstd = open("Results_std.txt", "a+")
@@ -14,7 +14,7 @@ fileoutputsem.truncate(0)
 
 first = True
 for file in listRes:
-    print(file, listRes)
+    print(file, file[-7:-4], listRes)
     r = float(file[-7:-4])
 
     with open("Results/"+file, "r") as f:

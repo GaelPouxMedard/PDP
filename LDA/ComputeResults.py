@@ -14,7 +14,6 @@ fileoutputsem.truncate(0)
 
 first = True
 for file in listRes:
-    print(file, file[-7:-4], listRes)
     r = float(file[-7:-4])
 
     with open("Results/"+file, "r") as f:
@@ -26,7 +25,7 @@ for file in listRes:
             first=False
         tabRes = []
         for line in f:
-            line = line.replace("\n", "").split("\t")
+            line = line.replace("\n", "").split("\t")[:-1]
             tabRes.append(list(map(float, line)))
 
         mean = np.mean(tabRes, axis=1)

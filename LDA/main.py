@@ -65,7 +65,7 @@ def preprocessing(dataset):
     lg = len(documents)
     for index_doc, document in enumerate(documents):
         if index_doc % (lg // 10) == 0: print(index_doc * 100 / lg, "%")
-        if index_doc > 350 and False: break
+        if index_doc > 350 and True: break
         # 分词
         segList = jieba.cut(document)
         for word in segList:
@@ -153,6 +153,7 @@ except:
 alpha = 1.
 beta = 0.1
 iterationNum = 500
+iterationNum = 5
 nbRuns = 100
 K = 21
 dataset = "Dataset_20new.txt"

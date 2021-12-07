@@ -206,7 +206,7 @@ for run in range(nbRuns):
         gibbsSampling(r)
         dt = time.time()-t
         t = time.time()
-        print(f"r = {r}, dt={dt}s, ", f"Iteration: {i}/{iterationNum} Completed", " Perplexity: ", perplexity())
+        print(f"r = {r}, run = {run}, dt={dt}s, ", f"Iteration: {i}/{iterationNum} Completed", " Perplexity: ", perplexity())
 
         if i%10==0:
             for doc_i, z in enumerate(Z):
